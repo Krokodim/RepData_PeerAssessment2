@@ -33,11 +33,9 @@ ex_log("Read started")
 
 dt <- read.table(
   file="repdata_data_StormData.csv.bz2",
-  head=TRUE, sep=",", comment.char = "",
-  stringsAsFactors=FALSE,
-  row.names = "REFNUM",
-  colClasses = read.classes,
-  na.strings = c(" ", ""),
+  head=TRUE, sep=",",       comment.char = "",
+  row.names = "REFNUM",     colClasses = read.classes,
+  stringsAsFactors=FALSE,   na.strings = c(" ", ""),
   nrows = 10^6
 )
 
