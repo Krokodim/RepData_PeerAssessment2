@@ -2,6 +2,14 @@ library(dplyr)
 library(lubridate)
 library(ggplot2)
 
+
+ex_log <- function (s) {
+  s <- paste(now(), s, sep = ">> ")
+  message(s)
+}
+
+ex_log("Start")
+
 # setup column classes to speed up reading (NULLs won't be read)
 read.classes <- c(
   STATE__    = "NULL",      BGN_DATE   = "character", BGN_TIME   = "NULL",      
@@ -19,20 +27,22 @@ read.classes <- c(
   REFNUM     = "numeric"
 )
 
-system.time(
-# read the raw data
+
+ex_log("Read started")
+
+
 dt <- read.table(
   file="repdata_data_StormData.csv.bz2",
-  head=TRUE,
+  head=TRUE, sep=",", comment.char = "",
   stringsAsFactors=FALSE,
-  sep=",",
-  comment.char = "",
   row.names = "REFNUM",
   colClasses = read.classes,
   na.strings = c(" ", ""),
   nrows = 10^6
 )
-)
+
+
+ex_log("Read finished")
 
 # set the column names
 colnames(dt) <- c(
@@ -44,3 +54,4 @@ colnames(dt) <- c(
 dt$date <- mdy_hms(dt$date)
 
 summary(dt$MAG)
+ex_log("Total finish")
